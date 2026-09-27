@@ -1,28 +1,29 @@
 # Shell/Git Tutorial
 
 This tutorial will walk you through basic shell and git commands.
-You should complete this tutorial by typing all commands within code blocks into your terminal.
+Run this optional tutorial in a separate `firstrepo` folder beside your lab repository.
+The [course lab page](https://csci40.rtealwitter.com/topics/07_oop/lab.html) contains the assignment requirements.
 
 <img src=img/hacker.jpg width=300px />
 
 > **NOTE:**
 > There is a lot of material in these instructions related to git that we have not covered in class.
 > That is intentional.
-> The purpose of this assignment is not just to learn git,
+> The purpose of this optional tutorial is to practice git,
 > but also to learn how to follow tutorials about material that you have never learned about before.
 
 ## Creating your first repo
 
 Create a folder named `firstrepo` and `cd` into it:
 ```
-$ mkdir firstrepo
-$ cd firstrepo
+mkdir firstrepo
+cd firstrepo
 ```
 
 Verify that the folder is empty by running
 ```
-$ ls
-$ ls -a
+ls
+ls -a
 .  ..
 ```
 In Unix-based systems, files that begin with `.` are called *hidden files*.
@@ -32,19 +33,18 @@ The `ls` command does not show hidden files, but the `ls -a` command does.
 This folder will be the home of your first git repository.
 Run the following command to initialize it:
 ```
-$ git init
+git init -b master
 ```
 
 All the information for the git repository is stored in a hidden folder called `.git`.
 Verify this by running:
 ```
-$ ls
-$ ls -a
+ls
+ls -a
 .  ..  .git
 ```
 
 Now we are ready to add some files into our repo.
-Every repo in this class must have a README file.
 README files describe what the project is about for new users.
 
 > **NOTE:**
@@ -58,33 +58,33 @@ README files describe what the project is about for new users.
 Create the file using the following command:
 
 ```
-$ touch README
+touch README
 ```
 
 The `touch` command is a standard unix command.
 If the input file does not already exist, `touch` creates an empty file with that name.
 If the file does already exist, it updates the file's timestamp to the current time.
-The `ls -l --full-time` command displays the full information about each file in the current directory.
+The `ls -l` command displays file details, including timestamps.
 Run the following commands:
 
 ```
-$ ls -l --full-time
-$ touch README
-$ ls -l --full-time
+ls -l
+touch README
+ls -l
 ```
 
 Notice how the timestamp in the first `ls` is different than the timestamp in the second `ls`.
 Now run the command
 ```
-$ ls -l
+ls -l
 ```
-Can you figure out what the `--full-time` flag did?
+The timestamp may not change visibly if both commands run within the same minute.
 
 We've created our first file, but git doesn't know about it yet.
 Run the command:
 
 ```
-$ git status
+git status
 ```
 
 In the output, there is a section labeled `Untracked files`.
@@ -92,7 +92,7 @@ Notice that the `README` file is in this section.
 We need to add it into our project using the command:
 
 ```
-$ git add README
+git add README
 ```
 
 Now, when we run `git status`, there is a section labeled `Changes to be committed` with the `README` file underneath it.
@@ -102,7 +102,7 @@ This tells git to save the state of the repo so that we can come back to it late
 Commit your changes using the command:
 
 ```
-$ git commit -m "my first commit"
+git commit -m "my first commit"
 ```
 
 > **NOTE:**
@@ -175,7 +175,7 @@ After you've saved your `message.py` file,
 run the program with the command
 
 ```
-$ python3 message.py --message=hello
+python3 message.py --message=hello
 ```
 
 You should get an output that looks like
@@ -191,7 +191,7 @@ either `hello` or `goodbye`.
 For example, we could run the command
 
 ```
-$ python3 message.py --message=goodbye
+python3 message.py --message=goodbye
 ```
 
 to get the output
@@ -203,7 +203,7 @@ goodbye world!
 But if we try to run the command
 
 ```
-$ python3 message.py --message=hi
+python3 message.py --message=hi
 ```
 
 we get an output that looks like
@@ -221,22 +221,24 @@ If they are not, then the program prints an error message describing how to use 
 You can also run your program by launching python interactively, importing your module into the repl, and the calling the main function with the following commands:
 
 ```
-$ python3 -i message.py
->>> import message
->>> message.main('hello')
+python3
+```
+
+In the Python interpreter, run:
+
+```python
+import message
+message.main('hello')
 ```
 
 > **NOTE:**
-> Lines beginning with `$` are shell commands,
-> and lines beginning with `>>>` are python commands.
-> This is a standard convention that most authors follow.
 > In order to exit the Python interpreter, press `CTRL+D` on an empty line.
 
 Now let's add `message.py` to the repo and commit your changes:
 
 ```
-$ git add message.py
-$ git commit -m "added the first code"
+git add message.py
+git commit -m "added the first code"
 ```
 
 > **WARNING:**
@@ -244,13 +246,13 @@ $ git commit -m "added the first code"
 > If you run the `ls` command again, you will notice that a file called `__pycache__` has appeared in your directory.
 > YOU SHOULD NEVER ADD THE `__pycache__` FILE TO A GIT REPO.
 > This file contains something called *bytecode* created by the `python3` command to make running programs faster.
-> Only plaintext files should ever be added into a git repo.
+> Add `__pycache__/` to `.gitignore`; source files and project assets belong in Git.
 
 Let's make one more commit so we'll have something to play with.
 Run the command:
 
 ```
-$ echo "This program prints \"hello git\"" > README
+echo "This program prints \"hello git\"" > README
 ```
 
 > **NOTE:**
@@ -265,13 +267,13 @@ The command `cat` prints the contents of a file.
 Verify that your `README` file has changed using the command:
 
 ```
-$ cat README
+cat README
 ```
 
 Now run:
 
 ```
-$ git commit -m "modified the README"
+git commit -m "modified the README"
 ```
 
 Uh oh!
@@ -284,8 +286,8 @@ This is because sometimes programmers want to commit only some of the modified f
 We can commit the changes by:
 
 ```
-$ git add README
-$ git commit -m "modified the README"
+git add README
+git commit -m "modified the README"
 ```
 
 ## Traveling through time
@@ -297,7 +299,7 @@ Now we're ready to take advantage of git's power.
 Run the command:
 
 ```
-$ git log
+git log
 ```
 
 This gives us a history of all our commits.
@@ -320,7 +322,7 @@ For me, the hash of the commit with message `my first commit` is `a20aef2096d98a
 So to inspect that commit, I would run:
 
 ```
-$ git checkout a20aef2096d98ab53d1495f823409e2cc8cd54b9
+git checkout a20aef2096d98ab53d1495f823409e2cc8cd54b9
 ```
 
 > **NOTE:**
@@ -330,7 +332,7 @@ Now let's see what happened.
 Run the command:
 
 ```
-$ cat README
+cat README
 ```
 
 The file is empty again!
@@ -338,7 +340,7 @@ The file is empty again!
 Now run:
 
 ```
-$ ls -l
+ls -l
 ```
 
 Your `message.py` file disappeared!
@@ -348,28 +350,28 @@ Let's restore all those changes.
 Run the command:
 
 ```
-$ git checkout master
+git checkout master
 ```
 
 And verify that our changes have been restored:
 
 ```
-$ cat README
-$ ls -l
+cat README
+ls -l
 ```
 
 ## Git repos are directed acyclic graphs (DAGs)
 
 Another important use of version control systems is working with multiple versions of the same project at once.
 This is VERY useful.
-You'll be required to do this in future homework assignments (and all throughout your illustrious careers), so pay attention!
+Practice the branch and merge workflow in this separate repository.
 
 Every version of our repo is called a *branch*.
 A project can have many branches, and every branch can be completely different than every other branch.
 List the branches in your current project using the command:
 
 ```
-$ git branch
+git branch
 ```
 
 This should list just a single branch called `master`.
@@ -397,13 +399,13 @@ Every time we add a new feature to a project, we create a branch for that featur
 Let's create a branch called `userinput` in our project by:
 
 ```
-$ git branch userinput
+git branch userinput
 ```
 
 Verify that our branch was created successfully:
 
 ```
-$ git branch
+git branch
 ```
 
 You should see two branches now.
@@ -421,13 +423,13 @@ Our repo DAG now looks like:
 Switch to our new branch using the command:
 
 ```
-$ git checkout userinput
+git checkout userinput
 ```
 
 Now run
 
 ```
-$ git branch
+git branch
 ```
 
 and verify that the asterisk is next to the `userinput` branch.
@@ -463,7 +465,7 @@ if __name__=='__main__':
 Test your code by running the command
 
 ```
-$ python3 message.py --message=hello
+python3 message.py --message=hello
 ```
 
 You should get the same output as you got before:
@@ -475,7 +477,7 @@ hello world!
 But now if you run the command
 
 ```
-$ python3 message.py --message=hello --input_name
+python3 message.py --message=hello --input_name
 ```
 
 The program will ask you for your name and greet you by name:
@@ -496,8 +498,8 @@ or just *flags* for short.
 Now, commit our changes to the current working branch the same way we committed them before:
 
 ```
-$ git add message.py
-$ git commit -m "added user input"
+git add message.py
+git commit -m "added user input"
 ```
 
 Before this commit, the `userinput` and `master` branches were pointing to the same commit.
@@ -511,10 +513,10 @@ Now your DAG looks like:
 Let's verify that our changes affected only the `userinput` branch and not the `master` branch by running the following commands:
 
 ```
-$ git checkout master
-$ cat message.py
-$ git checkout userinput
-$ cat message.py
+git checkout master
+cat message.py
+git checkout userinput
+cat message.py
 ```
 
 Notice that the contents of `message.py` are different depending on which branch you are on.
@@ -526,14 +528,14 @@ Ensure that you are in the `userinput` branch,
 and update the `README` file with the command:
 
 ```
-$ echo "This program asks the user for their name, then says hello." > README
+echo "This program asks the user for their name, then says hello." > README
 ```
 
 And add it to the repo:
 
 ```
-$ git add README
-$ git commit -m "updated README"
+git add README
+git commit -m "updated README"
 ```
 
 Your repo DAG now looks like:
@@ -555,14 +557,14 @@ While we were working on our `userinput` branch, someone reported a bug in our `
 To fix this bug, we first checkout our master branch:
 
 ```
-$ git checkout master
+git checkout master
 ```
 
 The bug is that our program has bad output when the user does not pass in the `--message` command line argument.
 If someone types the command
 
 ```
-$ python3 message.py
+python3 message.py
 ```
 
 then they get the output
@@ -578,8 +580,8 @@ Ensure that you are currently on the master branch,
 then run the commands
 
 ```
-$ git branch bugfix
-$ git checkout bugfix
+git branch bugfix
+git checkout bugfix
 ```
 
 Here's the resulting DAG.
@@ -610,12 +612,12 @@ and it is very easy to forget to specify all the options
 (or to not even know about all the options that you might need to set).
 You will have bugs like this in every program you ever write,
 and that's okay.
-Most programs---especially programs with millions of lines of code---are not bug free.
+Most large programs contain bugs.
 
 Verify that your changes worked by running the command
 
 ```
-$ python3 message.py
+python3 message.py
 ```
 
 and ensure you get the output
@@ -628,8 +630,8 @@ Once you've completed those changes,
 add `message.py` to the staging area and commit your change.
 
 ```
-$ git add message.py
-$ git commit -m "fixed the message bug"
+git add message.py
+git commit -m "fixed the message bug"
 ```
 
 Since you made the commit on the `bugfix` branch,
@@ -653,13 +655,13 @@ In this case it is a simple procedure.
 First, checkout the `master` branch:
 
 ```
-$ git checkout master
+git checkout master
 ```
 
 Then run the command:
 
 ```
-$ git merge bugfix
+git merge bugfix
 ```
 
 This automatically updates the modified files.
@@ -688,8 +690,8 @@ It's time to merge this feature with the `master` branch.
 Run the commands:
 
 ```
-$ git checkout master
-$ git merge userinput
+git checkout master
+git merge userinput
 ```
 
 Ouch!
@@ -720,7 +722,7 @@ def main(message,input_name):
     if input_name:
         print('enter your name')
         name = input()
-    else
+    else:
         name = 'world'
     print(f'{message} {name}!')
 
@@ -732,7 +734,7 @@ if __name__=='__main__':
 =======
     parser.add_argument('--message',choices=['hello','goodbye'])
     parser.add_argument('--input_name',action='store_true')
->>>>>>> master
+    >>>>>>> userinput
     args = parser.parse_args()
     main(args.message,args.input_name)
 ```
@@ -741,7 +743,7 @@ As you can see, the file is divided into several sections.
 Any line not between the `<<<<<<<<` and `>>>>>>>>` lines is common to both versions of `message.py`.
 The lines between `<<<<<<<< HEAD` and `=======` belong only to the version in the currently checked out branch (in this case, `master`).
 In git terminology, `HEAD` is the currently checked out branch and refers to the `*` in the DAGs we've been drawing.
-And the lines between `=======` and `>>>>>>>> userinput` belong only to the `userinput` branch.
+And the lines between `=======` and `>>>>>>> userinput` belong only to the `userinput` branch.
 
 The key to solving a merge conflict is to edit the lines between `<<<<<<<` and `>>>>>>>` to include only the correct information from each branch.
 In our case, we want the `--message` line from the `master` branch,
@@ -755,7 +757,7 @@ def main(message,input_name):
     if input_name:
         print('enter your name')
         name = input()
-    else
+    else:
         name = 'world'
     print(f'{message} {name}!')
 
@@ -774,8 +776,8 @@ We first tell git that we've resolved the conflict by adding the conflicting fil
 then we perform a standard commit:
 
 ```
-$ git add message.py
-$ git commit -m "solved merge conflict between userinput and master branches"
+git add message.py
+git commit -m "solved merge conflict between userinput and master branches"
 ```
 
 And your DAG looks like:
@@ -804,8 +806,8 @@ we should delete them with the `git branch -d` command.
 Run the following commands to delete these branches.
 
 ```
-$ git branch -d userinput
-$ git branch -d bugfix
+git branch -d userinput
+git branch -d bugfix
 ```
 
 The resulting DAG is
@@ -815,34 +817,4 @@ The resulting DAG is
 </p>
 
 You're done!
-There is nothing to submit for this tutorial :)
-
-<!--
-## Exercise
-
-Given the same repo above, draw the DAG that results after running the following commands.
-(You do not have to turn in the drawing.)
-
-```
-$ echo "everything is awesome" > README
-$ git add README
-$ git commit -m "changed the README"
-$ git checkout -b new_feature
-$ touch newfile
-$ git add newfile
-$ git commit -m 'added newfile'
-$ git checkout master
-$ touch newfile2
-$ git add newfile2
-$ git commit -m newfile2
-$ cat newfile2
-$ ls
-$ git merge new_feature
-```
-
-**HINT:**
-Running `git log --graph` will show an ASCII version of the graph.
-
-You should check the [git cheatsheet](https://github.com/mikeizbicki/ucr-cs100/blob/2015winter/textbook/cheatsheets/git-cheatsheet.md) to figure out what the `git checkout -b` command does.
-
--->
+Return to the [course lab page](https://csci40.rtealwitter.com/topics/07_oop/lab.html) for the assignment requirements.
