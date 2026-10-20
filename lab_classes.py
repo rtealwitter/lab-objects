@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-'''Starter types for the Classes lab and the final project.'''
+'''Starter types for the community feed lab.'''
 
 
 class User:
@@ -63,6 +63,8 @@ class User:
         True
         >>> User('alice') == User('bob')
         False
+        >>> User('alice') == 'alice'
+        False
         '''
         # TODO: return True when other is a User with the same username
 
@@ -115,6 +117,8 @@ class Tweet:
         ['python', 'oop']
         >>> Tweet('bob', 'just a normal tweet').hashtags()
         []
+        >>> Tweet('alice', '#Games #Games #BringSnacks! word#inside #').hashtags()
+        ['Games', 'Games', 'BringSnacks!', '']
         '''
         # TODO: split the text into words; keep the ones starting with '#',
         # returning each one without its leading '#'
